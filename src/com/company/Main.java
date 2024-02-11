@@ -24,7 +24,7 @@ public class Main {
         List<String> lines = new ArrayList<String>();
         while ((line = reader.readLine()) != null) {
             if(!line.trim().isEmpty()){
-                System.out.println(Main.Varieble2(line));
+                System.out.println(Varieble3(line));
                 System.out.println(line);
                 System.out.println("-------------");
             }
@@ -34,7 +34,7 @@ public class Main {
 
     }
 
-    public static void Varieble1(String s){
+    public static String Varieble1(String s){
         // параметры запроса
         boolean num=true; // число?
         boolean drob=false; // дробное?
@@ -62,12 +62,12 @@ public class Main {
 
         // результат проверки
         if (num==false){
-            System.out.println("String");
+            return "String";
         } else {
             if (drob == true){
-                System.out.println("float");
+                return "float";
             }else {
-                System.out.println("int");
+                return "int";
             }
         }
     }
@@ -92,5 +92,37 @@ public class Main {
         }
 
         return result;
+    }
+
+
+    public static String Varieble3(String s){
+        // результат проверки
+        if (isInt(s)){
+            return "int";
+        } else {
+            if (isFloat(s)){
+                return "float";
+            }else {
+                return "String";
+            }
+        }
+
+    }
+
+    public static boolean isFloat(String s){
+        try {
+            double d = Float.parseFloat(s);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+    public static boolean isInt(String s){
+        try {
+            int i = Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 }
