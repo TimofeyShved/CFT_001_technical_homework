@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -22,7 +24,7 @@ public class Main {
         List<String> lines = new ArrayList<String>();
         while ((line = reader.readLine()) != null) {
             if(!line.trim().isEmpty()){
-                Main.Varieble1(line);
+                System.out.println(Main.Varieble2(line));
                 System.out.println(line);
                 System.out.println("-------------");
             }
@@ -68,5 +70,27 @@ public class Main {
                 System.out.println("int");
             }
         }
+    }
+
+
+    public static String Varieble2(String s){
+        // параметры запроса
+        String result = "int";
+
+        Pattern patternFillter1 = Pattern.compile("[A-DF-Za-df-zА-Яа-я]");
+        Matcher matcherFillter1 = patternFillter1.matcher(s);
+        while (matcherFillter1.find()){
+            result = "String";
+        }
+
+        if (result.equals("int")) {
+            Pattern patternFillter2 = Pattern.compile(".*[.].*");
+            Matcher matcherFillter2 = patternFillter2.matcher(s);
+            while (matcherFillter2.find()) {
+                result = "float";
+            }
+        }
+
+        return result;
     }
 }
