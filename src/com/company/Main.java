@@ -11,118 +11,32 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        //--------------------------------------------- Получаем файл
-        File file = new File("in1.txt");
+        List<String> loadFiles = new ArrayList<>();
+        loadFiles.add("in1.txt");
+        loadFiles.add("in2.txt");
 
-        //создаем объект FileReader для объекта File
-        FileReader fr = new FileReader(file);
-
-        //создаем BufferedReader с существующего FileReader для построчного считывания
-        BufferedReader reader = new BufferedReader(fr);
-
-        String line;
-        List<String> lines = new ArrayList<String>();
-        while ((line = reader.readLine()) != null) {
-            if(!line.trim().isEmpty()){
-                System.out.println(Varieble3(line));
-                System.out.println(line);
-                System.out.println("-------------");
-            }
+        // Лист файлов
+        List<WorkToFile> listWorks = new ArrayList<WorkToFile>();
+        // загружем их данными, у каждого файла свои данные
+        for (String s: loadFiles){
+            listWorks.add(new WorkToFile(s));
         }
+
+        // общий список фильтрованных данных
+        FillterValue fillterValue = new FillterValue();
+        // вызываем фильтрацию
+        for (WorkToFile work: listWorks){
+            fillterValue.set(work.get());
+        }
+
+        // сохранение
+        for (WorkToFile work: listWorks){
+            work.SaveFile(fillterValue);
+        }
+
 
 
 
     }
 
-    public static String Varieble1(String s){
-        // параметры запроса
-        boolean num=true; // число?
-        boolean drob=false; // дробное?
-
-        // массивы символов
-        char[] digits= new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '+','E', 'e'};
-        char[] charArray = s.toCharArray();
-
-        // цикл проверки
-        for(char c1: charArray) {
-            // дробное?
-            if (c1 == '.'){
-                drob=true;
-            }
-            //проверка на возможные символы, не относящиеся к числу (не оптимизировано)
-            for (char c2: digits){
-                if(c1 == c2){
-                    num=true;
-                    break;
-                }else {
-                    num=false;
-                }
-            }
-        }
-
-        // результат проверки
-        if (num==false){
-            return "String";
-        } else {
-            if (drob == true){
-                return "float";
-            }else {
-                return "int";
-            }
-        }
-    }
-
-
-    public static String Varieble2(String s){
-        // параметры запроса
-        String result = "int";
-
-        Pattern patternFillter1 = Pattern.compile("[A-DF-Za-df-zА-Яа-я]");
-        Matcher matcherFillter1 = patternFillter1.matcher(s);
-        while (matcherFillter1.find()){
-            result = "String";
-        }
-
-        if (result.equals("int")) {
-            Pattern patternFillter2 = Pattern.compile(".*[.].*");
-            Matcher matcherFillter2 = patternFillter2.matcher(s);
-            while (matcherFillter2.find()) {
-                result = "float";
-            }
-        }
-
-        return result;
-    }
-
-
-    public static String Varieble3(String s){
-        // результат проверки
-        if (isInt(s)){
-            return "int";
-        } else {
-            if (isFloat(s)){
-                return "float";
-            }else {
-                return "String";
-            }
-        }
-
-    }
-
-    public static boolean isFloat(String s){
-        try {
-            double d = Float.parseFloat(s);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-    }
-    public static boolean isInt(String s){
-        try {
-            int i = Integer.parseInt(s);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-    }
 }
