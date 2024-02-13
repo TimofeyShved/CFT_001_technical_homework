@@ -6,12 +6,14 @@ import java.util.List;
 public class WorkToFile {
 
     private BufferedReader readerIsFile;
+    private OptionProject optionProject;
 
     public WorkToFile(){
     }
 
-    public WorkToFile(String s) throws FileNotFoundException {
+    public WorkToFile(String s, OptionProject optionProject) throws FileNotFoundException {
         this.LoadFile(s);
+        this.optionProject = optionProject;
     }
 
     public void LoadFile(String nameFile) throws FileNotFoundException {
@@ -34,15 +36,17 @@ public class WorkToFile {
     }
 
     public void SaveFile(FillterValue fillterValue){
-        save("sample-integers.txt", fillterValue.getListInt());
-        save("sample-floats.txt", fillterValue.getListFloat());
-        save("sample-strings.txt", fillterValue.getListString());
+        save("C:\\Users\\Admin\\IdeaProjects\\CFT_001_technical_homework\\"+this.optionProject.getO()+"\\"+this.optionProject.getP()+"integers.txt", fillterValue.getListInt());
+        save("C:\\Users\\Admin\\IdeaProjects\\CFT_001_technical_homework\\"+this.optionProject.getO()+"\\"+this.optionProject.getP()+"floats.txt", fillterValue.getListFloat());
+        save("C:\\Users\\Admin\\IdeaProjects\\CFT_001_technical_homework\\"+this.optionProject.getO()+"\\"+this.optionProject.getP()+"strings.txt", fillterValue.getListString());
     }
 
 
     private void save(String nameFile, List<String> listValue){
         // запись данных в файл
-        try(FileWriter writer = new FileWriter(nameFile, false))
+        File file = new File(nameFile);
+        file.getParentFile().mkdirs();
+        try(FileWriter writer = new FileWriter(file, this.optionProject.getA()))
         {
             // запись всей строки
             for (String s : listValue) { // пока не закончится наш список
