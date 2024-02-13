@@ -15,7 +15,7 @@ public class Main {
         // -------------------------------------------------------------- Принимаем значения из командной строки
         // принимам значения из командной строки,
         // например такое "in1.txt -o /some/path in2.txt -s -f -p result_ "
-        String input = "in1.txt -o /some/path in2.txt -s -f -p result_ ";
+        String input = "in1.txt -o /some/path -a in2.txt -s -f -p result_ ";
 
         // теперь достанем данные по поводу текстовых файлов
         String textFileR = "[^ ]\\w*.txt";

@@ -1,5 +1,6 @@
 package com.company;
 
+import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,10 +19,13 @@ public class OptionProject {
             String optionValue = matcherFillter1.group();
             switch (optionValue.charAt(1)) {
                 case 'o':
-                    this.o = optionValue.substring(3).replaceAll("\\s","");;
+                    this.o = optionValue.substring(3).replaceAll("\\s","")+"/";
+                    if (this.o.charAt(1)!=':'){
+                        this.o = Paths.get(".").toAbsolutePath().normalize().toString()+this.o;
+                    }
                     break;
                 case 'p':
-                    this.p = optionValue.substring(3).replaceAll("\\s","");;
+                    this.p = optionValue.substring(3).replaceAll("\\s","");
                     break;
                 case 's':
                     this.s=true;
@@ -30,7 +34,7 @@ public class OptionProject {
                     this.f=true;
                     break;
                 case 'a':
-                    this.f=true;
+                    this.a=true;
                     break;
                 default:
                     System.out.println(optionValue.charAt(1) +" no exists!");

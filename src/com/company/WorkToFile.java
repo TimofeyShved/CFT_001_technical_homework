@@ -1,6 +1,7 @@
 package com.company;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class WorkToFile {
@@ -36,9 +37,9 @@ public class WorkToFile {
     }
 
     public void SaveFile(FillterValue fillterValue){
-        save("C:\\Users\\Admin\\IdeaProjects\\CFT_001_technical_homework\\"+this.optionProject.getO()+"\\"+this.optionProject.getP()+"integers.txt", fillterValue.getListInt());
-        save("C:\\Users\\Admin\\IdeaProjects\\CFT_001_technical_homework\\"+this.optionProject.getO()+"\\"+this.optionProject.getP()+"floats.txt", fillterValue.getListFloat());
-        save("C:\\Users\\Admin\\IdeaProjects\\CFT_001_technical_homework\\"+this.optionProject.getO()+"\\"+this.optionProject.getP()+"strings.txt", fillterValue.getListString());
+        save(this.optionProject.getO()+this.optionProject.getP()+"integers.txt", fillterValue.getListInt());
+        save(this.optionProject.getO()+this.optionProject.getP()+"floats.txt", fillterValue.getListFloat());
+        save(this.optionProject.getO()+this.optionProject.getP()+"strings.txt", fillterValue.getListString());
     }
 
 
