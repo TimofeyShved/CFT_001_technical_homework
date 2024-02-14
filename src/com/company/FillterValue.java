@@ -29,24 +29,27 @@ public class FillterValue {
         return this.ListString;
     }
 
-    public void set(BufferedReader readerIsFile) throws IOException {
-        String line;
-        while ((line = readerIsFile.readLine()) != null) {
-            if(!line.trim().isEmpty()){
-                switch (FillterValue.wayThree(line)) {
-                    case "String":
-                        ListString.add(line);
-                        break;
-                    case "int":
-                        ListInt.add(line);
-                        break;
-                    case "float":
-                        ListFloat.add(line);
-                        break;
-                    default:
-                        System.out.println("NULL");
-                        break;
-                }
+    public void add(FillterValue fillterValue){
+        this.ListInt.addAll(fillterValue.ListInt);
+        this.ListFloat.addAll(fillterValue.ListFloat);
+        this.ListString.addAll(fillterValue.ListString);
+    }
+
+    public void set(List<String> stringArrayList) throws IOException {
+        for (String line: stringArrayList){
+            switch (FillterValue.wayThree(line)) {
+                case "String":
+                    ListString.add(line);
+                break;
+                case "int":
+                    ListInt.add(line);
+                break;
+                case "float":
+                    ListFloat.add(line);
+                break;
+                default:
+                    System.out.println("NULL");
+                break;
             }
         }
     }

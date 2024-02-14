@@ -2,22 +2,28 @@ package com.company;
 
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkToFile {
 
-    private BufferedReader readerIsFile;
     private OptionProject optionProject;
+    private List<String> stringArrayList = new ArrayList<String>();
 
     public WorkToFile(){
     }
 
-    public WorkToFile(String s, OptionProject optionProject) throws FileNotFoundException {
+    public WorkToFile(List<String> stringArrayList, OptionProject optionProject) throws IOException {
+        this.stringArrayList = stringArrayList;
+        this.optionProject = optionProject;
+    }
+
+    public WorkToFile(String s, OptionProject optionProject) throws IOException {
         this.LoadFile(s);
         this.optionProject = optionProject;
     }
 
-    public void LoadFile(String nameFile) throws FileNotFoundException {
+    public void LoadFile(String nameFile) throws IOException {
         //Получаем файл
         File file = new File(nameFile);
 
@@ -25,21 +31,35 @@ public class WorkToFile {
         FileReader fr = new FileReader(file);
 
         //создаем BufferedReader с существующего FileReader для построчного считывания
-        readerIsFile = new BufferedReader(fr);
+        BufferedReader readerIsFile = new BufferedReader(fr);
+
+        String line;
+        while ((line = readerIsFile.readLine()) != null) {
+            if(!line.trim().isEmpty()){
+                this.stringArrayList.add(line);
+            }
+        }
+
     }
 
-    public BufferedReader get(){
-        return this.readerIsFile;
+    public List<String> getStringArrayList() {
+        return stringArrayList;
     }
 
-    public void set(BufferedReader readerIsFile){
-        this.readerIsFile = readerIsFile;
+    public void setStringArrayList(List<String> stringArrayList) {
+        this.stringArrayList = stringArrayList;
     }
 
-    public void SaveFile(FillterValue fillterValue){
-        save(this.optionProject.getO()+this.optionProject.getP()+"integers.txt", fillterValue.getListInt());
-        save(this.optionProject.getO()+this.optionProject.getP()+"floats.txt", fillterValue.getListFloat());
-        save(this.optionProject.getO()+this.optionProject.getP()+"strings.txt", fillterValue.getListString());
+    public OptionProject getOptionProject() {
+        return optionProject;
+    }
+
+    public void setOptionProject(OptionProject optionProject) {
+        this.optionProject = optionProject;
+    }
+
+    public void SaveFile(String nameFile){
+        save(this.optionProject.getO()+this.optionProject.getP()+nameFile, stringArrayList);
     }
 
 

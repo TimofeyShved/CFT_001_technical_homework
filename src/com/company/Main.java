@@ -1,9 +1,7 @@
 package com.company;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +13,7 @@ public class Main {
         // -------------------------------------------------------------- Принимаем значения из командной строки
         // принимам значения из командной строки,
         // например такое "in1.txt -o /some/path in2.txt -s -f -p result_ "
-        String input = "in1.txt -o /some/path -a in2.txt -s -f -p result_ ";
+        String input = "in1.txt -o /some/path in2.txt -s -f -p result_ ";
 
         // теперь достанем данные по поводу текстовых файлов
         String textFileR = "[^ ]\\w*.txt";
@@ -44,17 +42,31 @@ public class Main {
 
         // -------------------------------------------------------------- Отфильтровать и сохранить
         // общий список фильтрованных данных
-        FillterValue fillterValue = new FillterValue();
+        Map<WorkToFile,FillterValue> listFillterValue = new HashMap<WorkToFile,FillterValue>();
+        FillterValue allValue = new FillterValue();
 
         // вызываем фильтрацию
         for (WorkToFile work: listWorks){
-            fillterValue.set(work.get());
+            FillterValue fillterValue = new FillterValue();
+            fillterValue.set(work.getStringArrayList());
+            listFillterValue.put(work, fillterValue);
+            allValue.add(fillterValue);
         }
+
+        WorkToFile intFile = new WorkToFile();
 
         // сохранение
         for (WorkToFile work: listWorks){
-            work.SaveFile(fillterValue);
+            FillterValue fillterValue = listFillterValue.get(work);
+            intFile.setStringArrayList(fillterValue.getListInt());
+            intFile.SaveFile("integers");
         }
+
+        // -------------------------------------------------------------- получаем статистику
+
+
+        StatisticsData statisticsData = new StatisticsData(allValue);
+        statisticsData.StatisticsFull();
 
     }
 
