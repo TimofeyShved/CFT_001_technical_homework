@@ -7,21 +7,25 @@ import java.util.List;
 
 public class WorkToFile {
 
+    private String typeFile = "All";
     private OptionProject optionProject;
     private List<String> stringArrayList = new ArrayList<String>();
+
+    // -------------------------------------------------------------------- Конструкторы
 
     public WorkToFile(){
     }
 
-    public WorkToFile(List<String> stringArrayList, OptionProject optionProject) throws IOException {
-        this.stringArrayList = stringArrayList;
-        this.optionProject = optionProject;
+    public WorkToFile(String typeFile) throws IOException {
+        this.typeFile = typeFile;
     }
 
     public WorkToFile(String s, OptionProject optionProject) throws IOException {
         this.LoadFile(s);
         this.optionProject = optionProject;
     }
+
+    // -------------------------------------------------------------------- Загрузка
 
     public void LoadFile(String nameFile) throws IOException {
         //Получаем файл
@@ -42,26 +46,11 @@ public class WorkToFile {
 
     }
 
-    public List<String> getStringArrayList() {
-        return stringArrayList;
-    }
-
-    public void setStringArrayList(List<String> stringArrayList) {
-        this.stringArrayList = stringArrayList;
-    }
-
-    public OptionProject getOptionProject() {
-        return optionProject;
-    }
-
-    public void setOptionProject(OptionProject optionProject) {
-        this.optionProject = optionProject;
-    }
+    // -------------------------------------------------------------------- Сохранение
 
     public void SaveFile(String nameFile){
         save(this.optionProject.getO()+this.optionProject.getP()+nameFile, stringArrayList);
     }
-
 
     private void save(String nameFile, List<String> listValue){
         // запись данных в файл
@@ -80,6 +69,31 @@ public class WorkToFile {
         catch(IOException ex){
             System.out.println(ex.getMessage()); // вывод ошибок при работе с файлом
         }
+    }
 
+    // -------------------------------------------------------------------- Геттеры и сеттеры
+
+    public List<String> getStringArrayList() {
+        return stringArrayList;
+    }
+
+    public void setStringArrayList(List<String> stringArrayList) {
+        this.stringArrayList.addAll(stringArrayList);
+    }
+
+    public OptionProject getOptionProject() {
+        return optionProject;
+    }
+
+    public void setOptionProject(OptionProject optionProject) {
+        this.optionProject = optionProject;
+    }
+
+    public String getTypeFile() {
+        return typeFile;
+    }
+
+    public void setTypeFile(String typeFile) {
+        this.typeFile = typeFile;
     }
 }

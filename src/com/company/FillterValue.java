@@ -17,6 +17,7 @@ public class FillterValue {
 
     }
 
+    // -------------------------------------------------------------------- Геттеры и сеттеры
     public List<String> getListInt()  {
         return this.ListInt;
     }
@@ -35,6 +36,7 @@ public class FillterValue {
         this.ListString.addAll(fillterValue.ListString);
     }
 
+    // -------------------------------------------------------------------- Фильтрация
     public void set(List<String> stringArrayList) throws IOException {
         for (String line: stringArrayList){
             switch (FillterValue.wayThree(line)) {

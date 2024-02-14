@@ -13,7 +13,7 @@ public class Main {
         // -------------------------------------------------------------- Принимаем значения из командной строки
         // принимам значения из командной строки,
         // например такое "in1.txt -o /some/path in2.txt -s -f -p result_ "
-        String input = "in1.txt -o /some/path in2.txt -s -f -p result_ ";
+        String input = "in1.txt -o /some/path in2.txt -s -a -f -p result_ ";
 
         // теперь достанем данные по поводу текстовых файлов
         String textFileR = "[^ ]\\w*.txt";
@@ -53,14 +53,36 @@ public class Main {
             allValue.add(fillterValue);
         }
 
-        WorkToFile intFile = new WorkToFile();
-
         // сохранение
-        for (WorkToFile work: listWorks){
-            FillterValue fillterValue = listFillterValue.get(work);
-            intFile.setStringArrayList(fillterValue.getListInt());
-            intFile.SaveFile("integers");
+        Map<String, WorkToFile> mapSaveToFile = new HashMap<String, WorkToFile> ();
+        mapSaveToFile.put("integers.txt", new WorkToFile("int"));
+        mapSaveToFile.put("strings.txt", new WorkToFile("String"));
+        mapSaveToFile.put("floats.txt", new WorkToFile("float"));
+
+        for (Map.Entry<String, WorkToFile> entry : mapSaveToFile.entrySet()) {
+            String nameFile = entry.getKey();
+            WorkToFile newFile = entry.getValue();
+            for (WorkToFile work: listWorks){
+                FillterValue fillterValue = listFillterValue.get(work);
+                switch (newFile.getTypeFile()){
+                    case "String":
+                        newFile.setStringArrayList(fillterValue.getListString());
+                        break;
+                    case "int":
+                        newFile.setStringArrayList(fillterValue.getListInt());
+                        break;
+                    case "float":
+                        newFile.setStringArrayList(fillterValue.getListFloat());
+                        break;
+                    default:
+                        System.out.println("NULL");
+                        break;
+                }
+            }
+            newFile.setOptionProject(optionProject);
+            newFile.SaveFile(nameFile);
         }
+
 
         // -------------------------------------------------------------- получаем статистику
 

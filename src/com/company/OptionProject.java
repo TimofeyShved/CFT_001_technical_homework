@@ -12,6 +12,8 @@ public class OptionProject {
     private Boolean f=false;
     private Boolean a=false;
 
+    // -------------------------------------------------------------------- Выбор настроек
+
     OptionProject(String option){
         Pattern patternFillter1 = Pattern.compile("-.?[^\\-]*");
         Matcher matcherFillter1 = patternFillter1.matcher(option);
@@ -42,6 +44,8 @@ public class OptionProject {
             }
         }
     }
+
+    // -------------------------------------------------------------------- Геттеры и сеттеры
 
     public void setO(String o) {
         this.o = o;
