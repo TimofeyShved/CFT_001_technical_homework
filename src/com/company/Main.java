@@ -15,18 +15,11 @@ public class Main {
         // например такое "in1.txt -o /some/path in2.txt -s -f -p result_ "
         String input = "in1.txt -o /some/path in2.txt -s -f -p result_ ";
 
-        // теперь достанем данные по поводу текстовых файлов
+        // шаблон для Regex, указываем что файлы будут текстовые
         String textFileR = "[^ ]\\w*.txt";
 
-        //создаём лист куда запишем их названия
-        List<String> loadFiles = new ArrayList<>();
-
-        //находим и записываем их в коллекцию
-        Pattern patternSearhTextFile = Pattern.compile(textFileR);
-        Matcher matcherSearhTextFile = patternSearhTextFile.matcher(input);
-        while (matcherSearhTextFile.find()){
-            loadFiles.add(matcherSearhTextFile.group());
-        }
+        //Вытаскиваем список имён файлов
+        List<String> loadFiles = Main.loadFiles(input, textFileR);
 
         // создаём настройки проекта
         String option = input.replaceAll(textFileR, "");
@@ -90,6 +83,21 @@ public class Main {
         StatisticsData statisticsData = new StatisticsData(allValue);
         statisticsData.StatisticsFull();
 
+    }
+
+    public static List<String> loadFiles(String input, String textFileR){
+
+        //создаём лист куда запишем их названия
+        List<String> loadFiles = new ArrayList<>();
+
+        //находим и записываем их в коллекцию
+        Pattern patternSearhTextFile = Pattern.compile(textFileR);
+        Matcher matcherSearhTextFile = patternSearhTextFile.matcher(input);
+        while (matcherSearhTextFile.find()){
+            loadFiles.add(matcherSearhTextFile.group());
+        }
+
+        return  loadFiles;
     }
 
 }
