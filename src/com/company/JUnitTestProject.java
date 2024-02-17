@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class JUnitTestProject {
 
     @Test
-    public void LoadFiles() throws Exception {
+    public void loadFiles() throws Exception {
         String input="in1.txt -o /some/path dsf23sd45fewrg435fd.txt sadf4.txt -s -f -p result_  in3.txt";
 
         // шаблон для Regex, указываем что файлы будут текстовые
@@ -73,4 +73,38 @@ public class JUnitTestProject {
         assertEquals(optionProject.getP(), "");
     }
 
+    @Test
+    public void fillterValue() throws Exception {
+        List<String> stringArrayList = new ArrayList<String>();
+        stringArrayList.add("Text");
+        stringArrayList.add("-6464");
+        stringArrayList.add("-15.245545454654");
+        stringArrayList.add("125.5468");
+        stringArrayList.add("2.74-e");
+        stringArrayList.add("2.74E-1");
+        stringArrayList.add("One");
+        stringArrayList.add("404 error");
+        stringArrayList.add("878768768768768874");
+        stringArrayList.add("8787 6876 8768 7688 7468478");
+        stringArrayList.add("E74");
+
+        FillterValue allValue = new FillterValue();
+        allValue.set(stringArrayList);
+
+        List<String> ListInt = allValue.getListInt();
+        List<String> ListFloat = allValue.getListFloat();
+        List<String> ListString = allValue.getListString();
+
+        assertEquals(ListInt.get(0), "-6464");
+        assertEquals(ListInt.get(1), "878768768768768874");
+        assertEquals(ListFloat.get(0), "-15.245545454654");
+        assertEquals(ListFloat.get(1), "125.5468");
+        assertEquals(ListFloat.get(2), "2.74E-1");
+        assertEquals(ListString.get(0), "Text");
+        assertEquals(ListString.get(1), "2.74-e");
+        assertEquals(ListString.get(2), "One");
+        assertEquals(ListString.get(3), "404 error");
+        assertEquals(ListString.get(4), "8787 6876 8768 7688 7468478");
+        assertEquals(ListString.get(5), "E74");
+    }
 }
