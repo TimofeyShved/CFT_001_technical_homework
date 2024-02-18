@@ -2,13 +2,15 @@ package com.company;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    //------------------------------------------------------------------------------------ Основной класс ------------------------------------------------------------------
 
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         // -------------------------------------------------------------- Принимаем значения из командной строки
         // принимам значения из командной строки,
@@ -25,28 +27,37 @@ public class Main {
         String option = input.replaceAll(textFileR, "");
         OptionProject optionProject = new OptionProject(option);
 
-        // -------------------------------------------------------------- Теперь можно загрузить данные из файлов
+        // -------------------------------------------------------------- Загрузка данных из файлов
         // Лист файлов
         List<WorkToFile> listWorks = new ArrayList<WorkToFile>();
+
+        // создаем счётчик потоков
+        CountDownLatch countDownLatch = new CountDownLatch(loadFiles.size()); // создаем счётчик
+
         // загружем их данными, у каждого файла свои данные
-        for (String s: loadFiles){
-            listWorks.add(new WorkToFile(s, optionProject));
+        for (String fileName: loadFiles){
+            new LoadFilesInThreads(fileName, optionProject, listWorks, countDownLatch); // запихиваем в цикле, наши файлы в потоки, а так же присваиваем нашим потокам счётчик
+            //listWorks.add(new WorkToFile(fileName, optionProject));
         }
 
-        // -------------------------------------------------------------- Отфильтровать и сохранить
+        countDownLatch.await(); // данный поток, ждёт пока счётчик потоков не зоплнится
+
+        // -------------------------------------------------------------- Фильтрация
         // общий список фильтрованных данных
         Map<WorkToFile,FillterValue> listFillterValue = new HashMap<WorkToFile,FillterValue>();
         FillterValue allValue = new FillterValue();
 
+        // создаем счётчик потоков
+        countDownLatch = new CountDownLatch(listWorks.size()); // создаем счётчик
+
         // вызываем фильтрацию
         for (WorkToFile work: listWorks){
-            FillterValue fillterValue = new FillterValue();
-            fillterValue.set(work.getStringArrayList());
-            listFillterValue.put(work, fillterValue);
-            allValue.add(fillterValue);
+            new FillterValueInThreads(work, listFillterValue, allValue, countDownLatch);
         }
 
-        // сохранение
+        countDownLatch.await(); // данный поток, ждёт пока счётчик потоков не зоплнится
+
+        // -------------------------------------------------------------- Сохранение
         Map<String, WorkToFile> mapSaveToFile = new HashMap<String, WorkToFile> ();
         mapSaveToFile.put("integers.txt", new WorkToFile("int"));
         mapSaveToFile.put("strings.txt", new WorkToFile("String"));
@@ -77,7 +88,7 @@ public class Main {
         }
 
 
-        // -------------------------------------------------------------- получаем статистику
+        // -------------------------------------------------------------- Статистика
 
 
         StatisticsData statisticsData = new StatisticsData(allValue);
@@ -100,4 +111,68 @@ public class Main {
         return  loadFiles;
     }
 
+    //------------------------------------------------------------------------------------ ПОТОКИ ------------------------------------------------------------------
+
+    //------------------------------------------------------------------------------------ ПОТОК 1 - Загрузка
+    // наш с вами поток
+    static class LoadFilesInThreads extends Thread{
+        String fileName; // файловое имя
+        CountDownLatch countDownLatch; // счётчик
+        List<WorkToFile> listWorks;
+        OptionProject optionProject;
+
+        public LoadFilesInThreads(String fileName, OptionProject optionProject, List<WorkToFile> listWorks, CountDownLatch countDownLatch) {
+            this.fileName = fileName;// передаем файловое имя
+            this.optionProject = optionProject;
+            this.listWorks = listWorks;
+            this.countDownLatch = countDownLatch; // передаем счётчик
+            start(); // запускаем поток, run()
+        }
+
+        @Override
+        public void run() {
+            // построчное считывание файла
+            try {
+                listWorks.add(new WorkToFile(fileName, optionProject));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            countDownLatch.countDown(); // прибовляем к счётчику +1
+        }
+    }
+
+    //------------------------------------------------------------------------------------ ПОТОК 2 - Фильтрация
+    // наш с вами поток
+    static class FillterValueInThreads extends Thread{
+        WorkToFile work; // файл
+        CountDownLatch countDownLatch; // счётчик
+        Map<WorkToFile,FillterValue> listFillterValue;
+        FillterValue allValue;
+
+        public FillterValueInThreads(WorkToFile work, Map<WorkToFile,FillterValue> listFillterValue, FillterValue allValue, CountDownLatch countDownLatch) {
+            this.work = work;// передаем файл
+            this.listFillterValue = listFillterValue;
+            this.allValue = allValue;
+            this.countDownLatch = countDownLatch; // передаем счётчик
+            start(); // запускаем поток, run()
+        }
+
+        @Override
+        public void run() {
+            // построчное считывание файла
+            try {
+                FillterValue fillterValue = new FillterValue();
+                fillterValue.set(work.getStringArrayList());
+                this.listFillterValue.put(work, fillterValue);
+                this.allValue.add(fillterValue);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            countDownLatch.countDown(); // прибовляем к счётчику +1
+        }
+    }
 }
