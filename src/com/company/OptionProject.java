@@ -1,6 +1,7 @@
 package com.company;
 
 import java.nio.file.Paths;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,30 +17,46 @@ public class OptionProject {
 
     OptionProject(String option){
         Pattern patternFillter1 = Pattern.compile("-.?[^\\-]*");
-        Matcher matcherFillter1 = patternFillter1.matcher(option);
+        Matcher matcherFillter1 = patternFillter1.matcher(option+" ");
         while (matcherFillter1.find()){
             String optionValue = matcherFillter1.group();
             switch (optionValue.charAt(1)) {
                 case 'o':
-                    this.o = optionValue.substring(3).replaceAll("\\s","")+"/";
-                    if (this.o.charAt(1)!=':'){
-                        this.o = Paths.get(".").toAbsolutePath().normalize().toString()+this.o;
+                    try {
+                        this.o = optionValue.substring(3).replaceAll("\\s","")+"/";
+                        if (this.o.charAt(0)!='/'){ this.o ="/"+this.o;}
+                        if (this.o.charAt(1)!=':'){
+                            this.o = Paths.get(".").toAbsolutePath().normalize().toString()+this.o;
+                        }
+                    }catch (Exception e){
+                        System.out.println("Путь выбран по умолчанию. Причина: не правильно указан путь для сохранения.");
+                        LoggClass.LOGGER.log(Level.INFO,"Путь выбран по умолчанию. Причина: не правильно указан путь для сохранения." , e);// логи
+                        o="";
                     }
                     break;
                 case 'p':
-                    this.p = optionValue.substring(3).replaceAll("\\s","");
+                    try {
+                        this.p = optionValue.substring(3).replaceAll("\\s","");
+                    }catch (Exception e){
+                        System.out.println("Файл выбран по умолчанию. Причина: не правильно указан файл для сохранения.");
+                        LoggClass.LOGGER.log(Level.INFO,"Файл выбран по умолчанию. Причина: не правильно указан файл для сохранения." , e);// логи
+                        p="";
+                    }
                     break;
                 case 's':
                     this.s=true;
+                    this.f=false;
                     break;
                 case 'f':
                     this.f=true;
+                    this.s=false;
                     break;
                 case 'a':
                     this.a=true;
                     break;
                 default:
-                    System.out.println(optionValue.charAt(1) +" no exists!");
+                    System.out.println("Параметр: (-"+optionValue.charAt(1) +") не существует!");
+                    LoggClass.LOGGER.log(Level.INFO,"Параметр: (-"+optionValue.charAt(1) +") не существует!");// логи
                     break;
             }
         }

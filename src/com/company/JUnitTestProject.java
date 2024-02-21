@@ -21,7 +21,7 @@ public class JUnitTestProject {
         String textFileR = "[^ ]\\w*.txt";
 
         //Вытаскиваем список имён файлов
-        List<String> loadFiles = Main.loadFiles(input, textFileR);
+        List<String> loadFiles = MainConsolVersion.loadFiles(input, textFileR);
 
         assertEquals(loadFiles.get(0), "in1.txt");
         assertEquals(loadFiles.get(1), "dsf23sd45fewrg435fd.txt");
@@ -37,7 +37,7 @@ public class JUnitTestProject {
         String textFileR = "[^ ]\\w*.txt";
 
         //Вытаскиваем список имён файлов
-        List<String> loadFiles = Main.loadFiles(input, textFileR);
+        List<String> loadFiles = MainConsolVersion.loadFiles(input, textFileR);
         // создаём настройки проекта
         String option = input.replaceAll(textFileR, "");
         OptionProject optionProject = new OptionProject(option);
@@ -71,6 +71,17 @@ public class JUnitTestProject {
         assertEquals(optionProject.getS(), false);
         assertEquals(optionProject.getF(), false);
         assertEquals(optionProject.getP(), "");
+
+        input="3.txt 324 1.txt in1.txt  -p-o-p-32-dfs -s-f -o sdaf w/safe in2.txt fef324/23-23- -p =s!#fsfr";
+        // создаём настройки проекта
+        option = input.replaceAll(textFileR, "");
+        optionProject = new OptionProject(option);
+
+        assertEquals(optionProject.getA(), false);
+        assertEquals(optionProject.getO(), Paths.get(".").toAbsolutePath().normalize().toString()+"/sdafw/safefef324/23/");
+        assertEquals(optionProject.getS(), true);
+        assertEquals(optionProject.getF(), true);
+        assertEquals(optionProject.getP(), "=s!#fsfr");
     }
 
     @Test

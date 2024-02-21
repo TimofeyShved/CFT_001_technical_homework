@@ -1,0 +1,117 @@
+февр. 20, 2024 12:23:56 AM com.company.WorkToFile LoadFile
+WARNING: Ошибка: Файл (1.txt) не найден! 1.txt (Не удается найти указанный файл)
+java.io.FileNotFoundException: 1.txt (Не удается найти указанный файл)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+	at java.base/java.io.FileReader.<init>(FileReader.java:75)
+	at com.company.WorkToFile.LoadFile(WorkToFile.java:37)
+	at com.company.WorkToFile.<init>(WorkToFile.java:25)
+	at com.company.MainConsolVersion$LoadFilesInThreads.run(MainConsolVersion.java:176)
+
+февр. 20, 2024 12:23:56 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:23:56 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:23:56 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:29:41 AM com.company.WorkToFile LoadFile
+WARNING: Ошибка: Файл (1.txt) не найден! 1.txt (Не удается найти указанный файл)
+java.io.FileNotFoundException: 1.txt (Не удается найти указанный файл)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+	at java.base/java.io.FileReader.<init>(FileReader.java:75)
+	at com.company.WorkToFile.LoadFile(WorkToFile.java:37)
+	at com.company.WorkToFile.<init>(WorkToFile.java:25)
+	at com.company.MainConsolVersion$LoadFilesInThreads.run(MainConsolVersion.java:176)
+
+февр. 20, 2024 12:29:41 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:29:41 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:29:41 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:32:00 AM com.company.WorkToFile LoadFile
+WARNING: Ошибка: Файл (1.txt) не найден! 1.txt (Не удается найти указанный файл)
+java.io.FileNotFoundException: 1.txt (Не удается найти указанный файл)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+	at java.base/java.io.FileReader.<init>(FileReader.java:75)
+	at com.company.WorkToFile.LoadFile(WorkToFile.java:37)
+	at com.company.WorkToFile.<init>(WorkToFile.java:25)
+	at com.company.MainConsolVersion$LoadFilesInThreads.run(MainConsolVersion.java:176)
+
+февр. 20, 2024 12:32:00 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:32:00 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:32:00 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:32:14 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:32:14 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+
+февр. 20, 2024 12:32:14 AM com.company.WorkToFile save
+WARNING: Ошибка: null
+java.lang.NullPointerException
+	at com.company.WorkToFile.save(WorkToFile.java:66)
+	at com.company.WorkToFile.SaveFile(WorkToFile.java:59)
+	at com.company.MainConsolVersion.main(MainConsolVersion.java:109)
+

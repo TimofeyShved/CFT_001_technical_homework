@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class WorkToFile {
 
@@ -28,47 +29,61 @@ public class WorkToFile {
     // -------------------------------------------------------------------- Загрузка
 
     public void LoadFile(String nameFile) throws IOException {
-        //Получаем файл
-        File file = new File(nameFile);
+        try {
+            //Получаем файл
+            File file = new File(nameFile);
 
-        //создаем объект FileReader для объекта File
-        FileReader fr = new FileReader(file);
+            //создаем объект FileReader для объекта File
+            FileReader fr = new FileReader(file);
 
-        //создаем BufferedReader с существующего FileReader для построчного считывания
-        BufferedReader readerIsFile = new BufferedReader(fr);
+            //создаем BufferedReader с существующего FileReader для построчного считывания
+            BufferedReader readerIsFile = new BufferedReader(fr);
 
-        String line;
-        while ((line = readerIsFile.readLine()) != null) {
-            if(!line.trim().isEmpty()){
-                this.stringArrayList.add(line);
+            String line;
+            while ((line = readerIsFile.readLine()) != null) {
+                if(!line.trim().isEmpty()){
+                    this.stringArrayList.add(line);
+                }
             }
+        } catch (FileNotFoundException e){
+            System.out.println("Файл ("+nameFile+") не найден!");
+            LoggClass.LOGGER.log(Level.WARNING,"Ошибка: Файл ("+nameFile+") не найден! "+ e.getMessage() , e);// логи
         }
-
     }
 
     // -------------------------------------------------------------------- Сохранение
 
     public void SaveFile(String nameFile){
-        save(this.optionProject.getO()+this.optionProject.getP()+nameFile, stringArrayList);
+        String p = this.optionProject.getP()+nameFile;
+        String o = this.optionProject.getO();
+        save(o+p, stringArrayList);
     }
 
     private void save(String nameFile, List<String> listValue){
-        // запись данных в файл
-        File file = new File(nameFile);
-        file.getParentFile().mkdirs();
-        try(FileWriter writer = new FileWriter(file, this.optionProject.getA()))
-        {
-            // запись всей строки
-            for (String s : listValue) { // пока не закончится наш список
-                writer.write(s); // записываем строку
-                writer.append('\n'); // переходим на новую строчку
-            }
-            //writer.flush(); // перезапись файла
+        try {
+            // запись данных в файл
+            File file = new File(nameFile);
+            //file.getParentFile().mkdirs();
+            try(FileWriter writer = new FileWriter(file, this.optionProject.getA()))
+            {
+                // запись всей строки
+                for (String s : listValue) { // пока не закончится наш список
+                    writer.write(s); // записываем строку
+                    writer.append('\n'); // переходим на новую строчку
+                }
+                //writer.flush(); // перезапись файла
 
+            }
+            catch(IOException ex){
+                System.out.println(ex.getMessage()); // вывод ошибок при работе с файлом
+                System.out.println("Файл не будет сохранён");
+                LoggClass.LOGGER.log(Level.WARNING,"Ошибка: Файл не будет сохранён " + ex.getMessage() , ex);// логи
+            }
+        } catch (NullPointerException e){
+            System.out.println("Ошибка: Файл не будет сохранён");
+            LoggClass.LOGGER.log(Level.WARNING,"Ошибка: " + e.getMessage() , e);// логи
         }
-        catch(IOException ex){
-            System.out.println(ex.getMessage()); // вывод ошибок при работе с файлом
-        }
+
     }
 
     // -------------------------------------------------------------------- Геттеры и сеттеры

@@ -22,58 +22,73 @@ public class StatisticsData {
 
     public void StatisticsFull(){
         this.StatisticsShort();
-        System.out.println("----------- целые -----");
-        System.out.println("Целые максимум:");
-        System.out.println(Collections.max(ListInt));
-        System.out.println("Целые минимум:");
-        System.out.println(Collections.min(ListInt));
+        if(ListInt.size()!=0) {
+            System.out.println("----------- Integers/целые -----");
+            System.out.println("MAX/Целые максимум:");
+            System.out.println(Collections.max(ListInt));
+            System.out.println("MIN/Целые минимум:");
+            System.out.println(Collections.min(ListInt));
+            long intSum = 0;
+            for (long n : ListInt) {
+                intSum += n;
+            }
+            System.out.println("SUM/Сумма целых:");
+            System.out.println(intSum);
 
-        long intSum = 0;
-        for (long n:ListInt){
-            intSum+=n;
+            System.out.println("AVERAGE/Среднее целых:");
+            System.out.println((float) intSum / ListInt.size());
+        }else{
+            System.out.println("Unfortunately, there is no data of the type (Integers)");
+            System.out.println("К сожелению данных типа (целые) нету");
         }
-        System.out.println("Сумма целых:");
-        System.out.println(intSum);
 
-        System.out.println("Среднее целых:");
-        System.out.println((float) intSum/ListInt.size());
+        if(ListInt.size()!=0) {
+            System.out.println("---------- Floats/дробь -----");
+            System.out.println("MAX/Дробные максимум:");
+            System.out.println(Collections.max(ListFloat));
+            System.out.println("MIN/Дробные минимум:");
+            System.out.println(Collections.min(ListFloat));
 
-        System.out.println("---------- дробь -----");
-        System.out.println("Дробные максимум:");
-        System.out.println(Collections.max(ListFloat));
-        System.out.println("Дробные минимум:");
-        System.out.println(Collections.min(ListFloat));
+            float intfloat = 0f;
+            for (float n : ListFloat) {
+                intfloat += n;
+            }
+            System.out.println("SUM/Сумма целых:");
+            System.out.println(intfloat);
 
-        float intfloat = 0f;
-        for (float n:ListFloat){
-            intfloat+=n;
+            System.out.println("AVERAGE/Среднее целых:");
+            System.out.println(intfloat / ListFloat.size());
+        }else {
+            System.out.println("Unfortunately, there is no data of the type (Floats)");
+            System.out.println("К сожелению данных типа (дробь) нету");
         }
-        System.out.println("Сумма целых:");
-        System.out.println(intfloat);
 
-        System.out.println("Среднее целых:");
-        System.out.println(intfloat/ListFloat.size());
-
-        System.out.println("---------- строка -----");
-        String maxS = ListString.get(0);
-        String minS = ListString.get(0);
-        for (String s:ListString){
-            if (maxS.length()<s.length()) maxS=s;
-            if (minS.length()>s.length()) minS=s;
+        if(ListInt.size()!=0) {
+            System.out.println("---------- Strings/строка -----");
+            String maxS = ListString.get(0);
+            String minS = ListString.get(0);
+            for (String s : ListString) {
+                if (maxS.length() < s.length()) maxS = s;
+                if (minS.length() > s.length()) minS = s;
+            }
+            System.out.println("MAX/Строка максимум:");
+            System.out.println(maxS);
+            System.out.println("MIN/Строка минимум:");
+            System.out.println(minS);
+        }else {
+            System.out.println("Unfortunately, there is no data of the type (Strings)");
+            System.out.println("К сожелению данных типа (строка) нету");
         }
-        System.out.println("Строка максимум:");
-        System.out.println(maxS);
-        System.out.println("Строка минимум:");
-        System.out.println(minS);
     }
 
     public void StatisticsShort(){
-        System.out.println("Количество элементов записанных в исходящие файлы:");
-        System.out.println("Целые числа:");
+        System.out.println("Number of items written to outgoing files");
+        System.out.println("Количество элементов записанных в исходящие файлы");
+        System.out.println("Integers/Целые числа:");
         System.out.println(ListInt.size());
-        System.out.println("Дробные числа:");
+        System.out.println("Floats/Дробные числа:");
         System.out.println(ListFloat.size());
-        System.out.println("Строки:");
+        System.out.println("Strings/Строки:");
         System.out.println(ListString.size());
     }
 }
